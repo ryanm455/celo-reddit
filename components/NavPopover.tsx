@@ -12,6 +12,7 @@ import {
 import CommunityView from "./CommunityView";
 
 const NavPopover = () => (
+  // adds a button the user can click to view the communities
   <Menu>
     <MenuButton
       as={Button}

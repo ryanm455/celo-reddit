@@ -9,7 +9,7 @@ export const upVote = (
   kit: ContractKit,
   idx: number,
   commentIdx: number = -1
-) =>
+) => // upvotes comments / posts. -1 or less means we are upvoting a post
   getContract(kit)
     .methods.upVote(idx, commentIdx)
     .send({ from: kit.defaultAccount });
@@ -17,16 +17,17 @@ export const downVote = (
   kit: ContractKit,
   idx: number,
   commentIdx: number = -1
-) =>
+) => // downvotes comments / posts. -1 or less means we are downvoting a post
   getContract(kit)
     .methods.downVote(idx, commentIdx)
     .send({ from: kit.defaultAccount });
 export const getVoteState = (
   kit: ContractKit,
   idx: number,
-  commentIdx: number = -1
+  commentIdx: number = -1  // gets user voted comments / posts. -1 or less means we are fetching a post
 ) => getContract(kit).methods.getVoteState(idx, commentIdx).call();
 export const getPosts = async (kit: ContractKit, communityIdx: number) => {
+  // gets all the posts in the community
   const postsIdx: number[] = await getContract(kit)
     .methods.getCommunityPosts(communityIdx)
     .call();
@@ -38,6 +39,7 @@ export const sendCUSD = async (
   address: string,
   amount: number
 ) => {
+  // awards cUSD to a user
   const _amount = new BigNumber(amount || 1).shiftedBy(18).toString(); // must be toString as for some reason in production it will fail
   const stableToken = await kit.contracts.getStableToken();
   const cUSDtx = await stableToken
@@ -53,6 +55,7 @@ export const sendCUSD = async (
 };
 
 export const checkAuth = (contractFeat: any, func: () => any) => () =>
+  // ensures that the user is connected to a wallet before calling any contract methods.
   contractFeat
     ? func()
     : alert(

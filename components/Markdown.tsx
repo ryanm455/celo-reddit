@@ -21,6 +21,7 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 
+// edit the default markdown components so they fit the dapp theme
 const overrides = {
   p: (({ children }) => <Text mb={2}>{children}</Text>) as React.FC,
   em: (({ children }) => <Text as="em">{children}</Text>) as React.FC,
@@ -81,6 +82,7 @@ const overrides = {
 };
 
 const Markdown: React.FC = ({ children }) => (
+  // displays markdown from a string
   <MarkdownJSX options={{ overrides }}>{children as string}</MarkdownJSX>
 );
 

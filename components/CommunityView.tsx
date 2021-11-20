@@ -1,9 +1,18 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { useContract } from "lib/contractKit";
 import Link from "next/link";
 
-import { MenuItem, Spinner, useDisclosure } from "@chakra-ui/react";
+import {
+  MenuItem,
+  Spinner,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 import CreateCommunityModal from "./modals/CreateCommunityModal";
 
@@ -14,6 +23,7 @@ const CommunityView = () => {
   const communitiesLen = useRef<number | null>(null);
 
   const getCommunities = useCallback(async () => {
+    // dynamically adds communities to the list
     communitiesLen.current = parseInt(
       await contract!.methods.communitesLen().call()
     );
@@ -29,6 +39,7 @@ const CommunityView = () => {
   }, [contract]);
 
   useEffect(() => {
+    // when connected to a wallet fetch the communities
     address &&
       communitiesLen.current !== communities.length &&
       getCommunities();

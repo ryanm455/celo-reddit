@@ -1,4 +1,9 @@
-import { ChangeEvent, ComponentProps, FC, useMemo } from "react";
+import {
+  ChangeEvent,
+  ComponentProps,
+  FC,
+  useMemo,
+} from "react";
 
 import { useField } from "hooked-form";
 
@@ -40,10 +45,13 @@ const FieldWrapper: FC<FieldWrapperProps> = ({
   label,
   children,
 }) => {
+  // helper to make the field components more simple
   const [{ onChange, onBlur, onFocus }, { value, touched, error }] = useField(
     fieldId,
     validation
   );
+
+  // give necessary info to the child component
   const _children = useMemo(
     () => children({ onChange, onBlur, onFocus, value }),
     [children, onBlur, onChange, onFocus, value]
@@ -65,6 +73,7 @@ export const Field: FC<FieldProps> = ({
   placeholder,
   as: As = Input,
 }) => (
+  // string field in a form
   <FieldWrapper
     fieldId={fieldId}
     label={label}
@@ -92,6 +101,7 @@ export const NumberField: FC<FieldProps> = ({
   label,
   placeholder,
 }) => (
+  // number field in a form
   <FieldWrapper
     fieldId={fieldId}
     label={label}

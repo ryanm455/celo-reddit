@@ -27,6 +27,7 @@ const Community: React.FC<Props> = ({ posts: _p, communityIdx, community }) => {
 
   const getPostVoteState = useCallback(
     async (_posts: Post[] = posts) =>
+      // gets whether the posts has been upvoted or downvoted
       setPosts(
         await Promise.all(
           _posts.map(async p => ({
@@ -39,15 +40,18 @@ const Community: React.FC<Props> = ({ posts: _p, communityIdx, community }) => {
   );
 
   const updatePosts = async () => {
+    // updates the posts
     const _posts = await getPosts(kit!, communityIdx);
     await getPostVoteState(_posts);
   };
 
   useEffect(() => {
+    // fetches what the user has voted when connected to wallet
     address && getPostVoteState();
   }, [address]);
 
   useEffect(() => {
+    // if on a new community change the posts
     address ? getPostVoteState(_p) : setPosts(_p);
   }, [_p])
 
@@ -68,7 +72,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
     .getCommunity(ctx.query.community)
     .call();
 
-  if (!community.length) {
+  if (!community.length) { // ensures the community exists
     return { notFound: true };
   }
 

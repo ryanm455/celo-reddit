@@ -28,11 +28,13 @@ export const CommentProvider: React.FC<{
   comments: TComment[];
   postChildCommentsIdx: number;
 }> = ({ children, comments: _comments, postChildCommentsIdx }) => {
+  // Allows the comments in a page to be managed in one place and prevent a lot of props being passed down to components.
   const { address, kit, contract } = useContract();
   const [comments, setComments] = useState<TComment[]>(_comments);
 
   const _fetchVotes = useCallback(
     async (com: TComment[]): Promise<TComment[]> =>
+      // fetches all the votes in all the comments given
       Promise.all(
         com.map(async c => ({
           ...c,
@@ -47,6 +49,7 @@ export const CommentProvider: React.FC<{
   );
 
   const fetchVotes = useCallback(
+    // adds votes to all the comments and stores in in the useState hook
     async (com: TComment[] = comments) => setComments(await _fetchVotes(com)),
     [kit]
   );
@@ -57,6 +60,7 @@ export const CommentProvider: React.FC<{
       children: TComment[],
       childCommentsIdx: number
     ): TComment[] =>
+      // finds where the comments needs to be updated and updates them with the new values fetched from the blockchain
       com.map(c =>
         c.childCommentsIdx == childCommentsIdx
           ? {
@@ -78,6 +82,7 @@ export const CommentProvider: React.FC<{
   );
 
   const loadMore = async (childCommentsIdx: number) => {
+    // loads children comments
     let _comments = await contract!.methods
       .getComments(childCommentsIdx)
       .call();
@@ -93,6 +98,7 @@ export const CommentProvider: React.FC<{
   };
 
   const refetchComments = async () => {
+    // refreshes the comments
     const comments = await _fetchVotes(
       commentsFromArr(
         await contract!.methods.getComments(postChildCommentsIdx).call()
@@ -102,6 +108,7 @@ export const CommentProvider: React.FC<{
   };
 
   useEffect(() => {
+    // fetches what the user has voted when connected to wallet
     address && fetchVotes();
   }, [address]);
 

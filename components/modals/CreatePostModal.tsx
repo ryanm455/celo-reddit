@@ -24,6 +24,7 @@ type Props = {
 };
 
 const CreatePostModal: FC<Props> = ({ isOpen, onClose, communityIdx }) => {
+  // opens a modal to create a post
   const { kit, contract } = useContract();
 
   return (

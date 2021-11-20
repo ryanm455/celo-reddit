@@ -23,6 +23,7 @@ import ButtonResponsive from "./ButtonResponsive";
 const NavPopover = dynamic(() => import("./NavPopover"));
 
 const ThemeSwitcher = () => {
+  // allows user to switch between light and dark theme
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
@@ -36,6 +37,7 @@ const ThemeSwitcher = () => {
 };
 
 const Nav = () => {
+  // displays the navigation menu
   const { address, connect } = useContract();
 
   return (

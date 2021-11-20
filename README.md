@@ -1,3 +1,12 @@
+# Info
+
+Deddit is a decentralized version of the popular social media platform, Reddit. It allows users to create posts, communities and upvote and downvote posts and comments. Also features awarding, where you can award users in cUSD.
+It is built with Next.js, react and chakra-ui.
+
+Feel free to submit any suggestions or improvements!
+
+![Index page](public/img.png)
+
 # Install
 
 ```

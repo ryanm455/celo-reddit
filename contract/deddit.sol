@@ -41,6 +41,7 @@ contract Deddit {
     mapping(address => mapping(uint => mapping(uint => bool))) internal downVotedComments;
     
     function createCommunity(string memory _name) public {
+        // creates a new community
         Community storage newCommunity = communites[communitesLen];
         communitesLen++;
         newCommunity.name = _name;
@@ -49,14 +50,17 @@ contract Deddit {
     function getCommunity(uint _idx) public view returns (
         string memory
     ) {
+        // returns the community name from the index
         return (communites[_idx].name);
     }
     
     function getCommunityPosts(uint _idx) public view returns (uint[] memory) {
+        // returns all of the posts in the community
         return (communites[_idx].postsIdx);
     }
     
     function createPost(uint _communityIdx, string memory _title, string memory _content) public {
+        // creates a new post
         posts[postsLen] = Post(
             payable(msg.sender),
             _title,
@@ -72,13 +76,15 @@ contract Deddit {
     }
     
     function getVoteState(uint _idx, int _commentIdx) public view returns (string memory _state) {
-        if (_commentIdx < 0) {
+        if (_commentIdx < 0) { // if less than 0 it is a post
+            // return votes for post
             if (upVoted[msg.sender][_idx]) {
                 return "upVoted";
             } else if (downVoted[msg.sender][_idx]) {
                 return "downVoted";
             }
         } else {
+            // return votes for comment
             if (upVotedComments[msg.sender][_idx][uint(_commentIdx)]) {
                 return "upVoted";
             } else if (downVotedComments[msg.sender][_idx][uint(_commentIdx)]) {
@@ -96,6 +102,7 @@ contract Deddit {
         uint,
         uint
     ) {
+        // returns the post from the index
         return (
             posts[_idx].poster,
             posts[_idx].title,
@@ -107,6 +114,7 @@ contract Deddit {
     }
     
     function createComment(uint _idx, string memory _content) public {
+        // creates a comment
         Comment memory _newComment = Comment(
              payable(msg.sender),
              _content,
@@ -120,11 +128,13 @@ contract Deddit {
     }
     
     function getComments(uint _idx) public view returns (Comment[] memory) {
+        // returns the comment indexes from the childCommentIdx
         return comments[_idx];
     }
     
     function upVote(uint _idx, int _commentIdx) public payable {
-        if (_commentIdx < 0) {
+        // upvotes a comment or a post
+        if (_commentIdx < 0) { // if less than 0 it is a post
             require(upVoted[msg.sender][_idx] == false, "Already up voted");
             require(downVoted[msg.sender][_idx] == false, "Already down voted");
             require(posts[_idx].poster != address(0x0), "Index not valid");
@@ -140,7 +150,8 @@ contract Deddit {
     }
     
     function downVote(uint _idx, int _commentIdx) public payable {
-        if (_commentIdx < 0) {
+        // downvotes a comment or a post
+        if (_commentIdx < 0) { // if less than 0 it is a post
             require(downVoted[msg.sender][_idx] == false, "Already down voted");
             require(upVoted[msg.sender][_idx] == false, "Already up voted");
             require(posts[_idx].poster != address(0x0), "Index not valid");

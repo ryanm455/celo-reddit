@@ -13,6 +13,7 @@ type Props = {
 };
 
 const ReplyBox: React.FC<Props> = ({ childCommentsIdx }) => {
+  // form for writing and adding comments
   const { address, kit, contract } = useContract();
   const { refetchComments } = useComment();
 

@@ -1,9 +1,20 @@
-import { useCallback, useEffect, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 import { useContract } from "lib/contractKit";
-import { checkAuth, downVote, upVote } from "lib/contractMethods";
+import {
+  checkAuth,
+  downVote,
+  upVote,
+} from "lib/contractMethods";
 import Link from "next/link";
-import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import {
+  FiChevronDown,
+  FiChevronUp,
+} from "react-icons/fi";
 import { Post as TPost } from "types/Post";
 
 import {
@@ -27,23 +38,25 @@ const Post: React.FC<
   const [post, setPost] = useState(_post);
 
   const updatePostVote = (voteAmount: -1 | 1, voteState: TPost["voteState"]) =>
+    // updates the post vote value
     setPost(p => ({ ...p, votes: p.votes + voteAmount, voteState }));
 
   const _upVote = useCallback(async () => {
-    if (post.voteState === "none") {
+    if (post.voteState === "none") { // if not voted already
       await upVote(kit as any, post.childCommentsIdx);
       updatePostVote(1, "upVoted");
     }
   }, [kit, post.childCommentsIdx, post.voteState]);
 
   const _downVote = useCallback(async () => {
-    if (post.voteState === "none") {
+    if (post.voteState === "none") { // if not voted already
       await downVote(kit as any, post.childCommentsIdx);
       updatePostVote(-1, "downVoted");
     }
   }, [kit, post.childCommentsIdx, post.voteState]);
 
   useEffect(() => {
+    // if the user is logged in, receive vote values from parent and update
     setPost(p => ({ ...p, voteState: _post.voteState }));
   }, [_post.voteState]);
 

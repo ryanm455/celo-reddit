@@ -1,7 +1,7 @@
 import { HookedForm } from "hooked-form";
+import { useContract } from "lib/contractKit";
 import { sendCUSD } from "lib/contractMethods";
 
-import { useContract } from "lib/contractKit";
 import {
   Button,
   Modal,
@@ -22,6 +22,7 @@ type Props = {
 };
 
 const AwardModal: React.FC<Props> = ({ address, isOpen, onClose }) => {
+  // modal for giving a user an award of cUSD
   const { kit } = useContract();
 
   return (

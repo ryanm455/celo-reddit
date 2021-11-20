@@ -22,6 +22,7 @@ type Props = {
 };
 
 const CreateCommunityModal: FC<Props> = ({ isOpen, onClose }) => {
+  // opens a modal to add a community
   const { kit, contract } = useContract();
 
   return (

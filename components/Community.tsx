@@ -56,9 +56,11 @@ const Community: React.FC<Props> = ({
   const [address, setAddress] = useState<string>();
 
   const openAwardModal = (address: string) => (
+    // sets the address to send the award to and opens the award modal to send
     setAddress(address), onAwardOpen()
   );
 
+  // when the add post modal is closed update the posts to add the new one
   const updatePosts = async () => (await _updatePosts(), onCreateClose());
 
   return (

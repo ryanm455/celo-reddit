@@ -1,16 +1,32 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import CommentThread from "components/CommentThread";
 import Markdown from "components/Markdown";
 import ReplyBox from "components/ReplyBox";
-import { CommentProvider, CommentStore } from "lib/CommentsStore";
+import {
+  CommentProvider,
+  CommentStore,
+} from "lib/CommentsStore";
 import { useContract } from "lib/contractKit";
-import { checkAuth, downVote, getVoteState, upVote } from "lib/contractMethods";
+import {
+  checkAuth,
+  downVote,
+  getVoteState,
+  upVote,
+} from "lib/contractMethods";
 import { commentsFromArr } from "lib/contractResConv";
 import { ssrContract } from "lib/ssrContract";
 import { GetServerSideProps } from "next";
 import dynamic from "next/dynamic";
-import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import {
+  FiChevronDown,
+  FiChevronUp,
+} from "react-icons/fi";
 import { Comment } from "types/Comment";
 import { Post as TPost } from "types/Post";
 
@@ -46,15 +62,18 @@ const Post: React.FC<Props> = ({
   const [address, setAddress] = useState<string>();
   const { address: userAddress, kit } = useContract();
 
+  // sets the address to send the award to and opens the modal
   const openAwardModal = (address: string) => (setAddress(address), onOpen());
 
   const [post, setPost] = useState(_post);
 
+  // updates the post votes when user upvotes / downvotes
   const updatePostVote = (voteAmount: -1 | 1, voteState: TPost["voteState"]) =>
     setPost(p => ({ ...p, votes: p.votes + voteAmount, voteState }));
 
   const fetchPostVotes = useCallback(
     async () =>
+      // fetches vote state from the blockchain to see if the user has upvoted or downvoted
       setPost({
         ...post,
         voteState: await getVoteState(kit as any, post.idx),
@@ -64,6 +83,7 @@ const Post: React.FC<Props> = ({
 
   const _upVote = useCallback(async () => {
     if (post.voteState === "none") {
+      // if not voted before
       await upVote(kit as any, post.childCommentsIdx);
       updatePostVote(1, "upVoted");
     }
@@ -71,12 +91,14 @@ const Post: React.FC<Props> = ({
 
   const _downVote = useCallback(async () => {
     if (post.voteState === "none") {
+      // if not voted before
       await downVote(kit as any, post.childCommentsIdx);
       updatePostVote(-1, "downVoted");
     }
   }, [kit, post.childCommentsIdx, post.voteState]);
 
   useEffect(() => {
+    // fetches what the user has voted when connected to wallet
     userAddress && fetchPostVotes();
   }, [userAddress]);
 
@@ -120,7 +142,7 @@ const Post: React.FC<Props> = ({
           <Button
             variant="ghost"
             onClick={() =>
-              navigator.share({
+              navigator.share({ // opens share menu
                 url: `${process.env.NEXT_PUBLIC_DOMAIN}/r/${communityIdx}/${post.idx}`,
               })
             }
@@ -137,7 +159,7 @@ const Post: React.FC<Props> = ({
       >
         <CommentProvider
           postChildCommentsIdx={post.childCommentsIdx}
-          comments={useMemo(
+          comments={useMemo( // ensures all comments have a children array
             () => comments.map(e => ({ ...e, children: [] })),
             []
           )}
@@ -178,7 +200,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
     contract.methods.getPost(ctx.query.post).call(),
   ]);
 
-  if (!community.length || !post[1].length) {
+  if (!community.length || !post[1].length) { // ensure the post and community exists
     return { notFound: true };
   }
 

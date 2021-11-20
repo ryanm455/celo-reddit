@@ -38,26 +38,28 @@ const Comment: React.FC<TComment & { openAwardModal: (a: string) => void }> = ({
   const [reply, setReply] = useState<boolean>(false);
   const [comment, setComment] = useState(_comment);
 
+  // updates the comments vote value
   const updateCommentVote = (
     voteAmount: -1 | 1,
     voteState: TComment["voteState"]
   ) => setComment(c => ({ ...c, votes: c.votes + voteAmount, voteState }));
 
   const _upVote = useCallback(async () => {
-    if (!comment.voteState || comment.voteState === "none") {
+    if (!comment.voteState || comment.voteState === "none") { // if not voted before
       await upVote(kit!, comment.parentCommentsIdx, comment.idx);
       updateCommentVote(1, "upVoted");
     }
   }, [comment.voteState, comment.parentCommentsIdx, comment.idx, kit]);
 
   const _downVote = useCallback(async () => {
-    if (!comment.voteState || comment.voteState === "none") {
+    if (!comment.voteState || comment.voteState === "none") { // if not voted before
       await downVote(kit!, comment.parentCommentsIdx, comment.idx);
       updateCommentVote(-1, "downVoted");
     }
   }, [comment.voteState, comment.parentCommentsIdx, comment.idx, kit]);
 
   useEffect(() => {
+    // updates from props whether upvoted or downvoted when connected to a wallet
     setComment(p => ({ ...p, voteState: _comment.voteState }));
   }, [_comment.voteState]);
 

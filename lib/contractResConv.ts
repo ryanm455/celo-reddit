@@ -6,6 +6,7 @@ export const postsFromArr = async (
   posts: number[],
   contract: any
 ): Promise<Post[]> => {
+  // converts the posts received from the blockchain into an object
   const _posts = [];
   for (let post in posts) {
     _posts.push(
@@ -27,6 +28,7 @@ export const postsFromArr = async (
 };
 
 export const commentsFromArr = (comments: (string | number)[][]): Comment[] =>
+  // converts the comments received from the blockchain into an object
   comments.map((c: (string | number)[], idx: number) => ({
     idx,
     commenter: c[0] as string,

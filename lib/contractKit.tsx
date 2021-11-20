@@ -1,4 +1,9 @@
-import { createContext, FC, useContext, useState } from "react";
+import {
+  createContext,
+  FC,
+  useContext,
+  useState,
+} from "react";
 
 import type { Contract as TContract } from "web3-eth-contract";
 
@@ -21,9 +26,11 @@ let [kit, contract] = [
 const Contract = createContext<IContract>({ connect: () => {} });
 
 export const ContractProvider: FC = ({ children }) => {
+  // Provider for the contract enables it to be accessed throughout the dapp
   const [address, setAddress] = useState<string>();
 
   const connect = async () => {
+    // connecting to the celo blockchain
     // @ts-ignore
     const Web3 = await import("web3/dist/web3.min.js").then(w => w.default);
     const newKitFromWeb3 = await import("@celo/contractkit").then(

@@ -1,11 +1,19 @@
-import { FC, memo, useState } from "react";
+import {
+  FC,
+  memo,
+  useState,
+} from "react";
 
 import { useComment } from "lib/CommentsStore";
 import { useContract } from "lib/contractKit";
 import { checkAuth } from "lib/contractMethods";
 import { Comment as TComment } from "types/Comment";
 
-import { Box, Button, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+} from "@chakra-ui/react";
 
 import Comment from "./Comment";
 
@@ -20,6 +28,7 @@ const CommentThread: FC<{ comments: TComment[] } & any> = ({
   );
 
   const toggleReplies = (idx: number) =>
+    // opens or closes the reply's to make sure they all aren't open by default
     setShowReplies(s => s.map((r, i) => (i === idx ? !r : r)));
 
   return (

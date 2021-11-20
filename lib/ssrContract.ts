@@ -4,6 +4,7 @@ import Web3 from "web3";
 import { newKitFromWeb3 } from "@celo/contractkit";
 
 export const ssrContract = async () => {
+  // gets the contract on the server
   const web3 = new Web3(process.env.CONTRACT_DEPLOYMENT_SERVER as string);
 
   const kit = newKitFromWeb3(web3 as any);
