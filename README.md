@@ -7,6 +7,10 @@ Feel free to submit any suggestions or improvements!
 
 ![Index page](public/img.png)
 
+# Live Demo
+
+[Demo](https://celo-reddit.vercel.app/)
+
 # Install
 
 ```
