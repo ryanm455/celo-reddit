@@ -80,6 +80,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       communityIdx: 0,
       community: "announcements",
     },
+    revalidate: 15
   };
 };
 
