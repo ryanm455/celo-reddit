@@ -19,9 +19,9 @@ contract Deddit {
         int votes;
         uint timestamp;
         uint commentsIdx;
-        uint[] reportsIdx;
+        uint reportsIdx;
     }
-    struct Report{
+    struct Report {
         address payable reporter;
         string content;
     }
@@ -40,9 +40,7 @@ contract Deddit {
     mapping (uint => Comment[]) internal comments;
     uint public commentsLen = 0;
     
-    mapping (uint => Report) internal reports;
-    uint public reportsLen  = 0;
-    
+    mapping (uint => Report[]) internal reports;
     mapping(address => mapping(uint => bool)) internal upVoted;
     mapping(address => mapping(uint => bool)) internal downVoted;
     mapping(address => mapping(uint => mapping(uint => bool))) internal upVotedComments;
@@ -82,13 +80,14 @@ contract Deddit {
     }
     
     function createReport(uint _postsIdx, string memory _content) public{
-        reports[reportsLen] = Report(
+        Report memory report = Report(
             payable(msg.sender),
             _content
         );
-        posts[_postsIdx].reportsIdx.push(reportsLen);
-        reportsLen++;
+
+        reports[_postsIdx].push(report);
     }
+
     function getVoteState(uint _idx, int _commentIdx) public view returns (string memory _state) {
         if (_commentIdx < 0) { // if less than 0 it is a post
             // return votes for post
@@ -115,7 +114,7 @@ contract Deddit {
         int,
         uint,
         uint,
-        uint[] memory
+        uint
     ) {
         // returns the post from the index
         return (
@@ -129,14 +128,8 @@ contract Deddit {
         );
     }
     
-    function getReport(uint _idx) public view returns (
-        address payable,
-        string memory
-    ){
-        return (
-            reports[_idx].reporter,
-            reports[_idx].content
-        );
+    function getReports(uint _postIdx) public view returns (Report[] memory){
+        return (reports[_postIdx]);
     }
     
     function createComment(uint _idx, string memory _content) public {
