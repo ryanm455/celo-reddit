@@ -19,6 +19,11 @@ contract Deddit {
         int votes;
         uint timestamp;
         uint commentsIdx;
+        uint[] reportsIdx;
+    }
+    struct Report{
+        address payable reporter;
+        string content;
     }
     
     struct Community {
@@ -34,6 +39,9 @@ contract Deddit {
     
     mapping (uint => Comment[]) internal comments;
     uint public commentsLen = 0;
+    
+    mapping (uint => Report) internal reports;
+    uint public reportsLen  = 0;
     
     mapping(address => mapping(uint => bool)) internal upVoted;
     mapping(address => mapping(uint => bool)) internal downVoted;
@@ -60,21 +68,27 @@ contract Deddit {
     }
     
     function createPost(uint _communityIdx, string memory _title, string memory _content) public {
-        // creates a new post
-        posts[postsLen] = Post(
-            payable(msg.sender),
-            _title,
-            _content,
-            0,
-            block.timestamp,
-            commentsLen
-        );
+        Post storage post = posts[postsLen];
+        post.poster = payable(msg.sender);
+        post.title = _title;
+        post.content = _content;
+        post.votes = 0;
+        post.timestamp = block.timestamp;
+        post.commentsIdx = commentsLen;
         
         communites[_communityIdx].postsIdx.push(postsLen);
         postsLen++;
         commentsLen++;
     }
     
+    function createReport(uint _postsIdx, string memory _content) public{
+        reports[reportsLen] = Report(
+            payable(msg.sender),
+            _content
+        );
+        posts[_postsIdx].reportsIdx.push(reportsLen);
+        reportsLen++;
+    }
     function getVoteState(uint _idx, int _commentIdx) public view returns (string memory _state) {
         if (_commentIdx < 0) { // if less than 0 it is a post
             // return votes for post
@@ -100,7 +114,8 @@ contract Deddit {
         string memory,
         int,
         uint,
-        uint
+        uint,
+        uint[] memory
     ) {
         // returns the post from the index
         return (
@@ -109,7 +124,18 @@ contract Deddit {
             posts[_idx].content,
             posts[_idx].votes,
             posts[_idx].timestamp,
-            posts[_idx].commentsIdx
+            posts[_idx].commentsIdx,
+            posts[_idx].reportsIdx
+        );
+    }
+    
+    function getReport(uint _idx) public view returns (
+        address payable,
+        string memory
+    ){
+        return (
+            reports[_idx].reporter,
+            reports[_idx].content
         );
     }
     
