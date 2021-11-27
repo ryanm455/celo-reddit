@@ -1,386 +1,342 @@
-{
-	"compiler": {
-		"version": "0.8.9+commit.e5eed63a"
+[
+	{
+		"inputs": [],
+		"name": "commentsLen",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
-	"language": "Solidity",
-	"output": {
-		"abi": [
+	{
+		"inputs": [],
+		"name": "communitesLen",
+		"outputs": [
 			{
-				"inputs": [],
-				"name": "commentsLen",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idx",
+				"type": "uint256"
 			},
 			{
-				"inputs": [],
-				"name": "communitesLen",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
+				"internalType": "string",
+				"name": "_content",
+				"type": "string"
+			}
+		],
+		"name": "createComment",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			}
+		],
+		"name": "createCommunity",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_communityIdx",
+				"type": "uint256"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_idx",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "_content",
-						"type": "string"
-					}
-				],
-				"name": "createComment",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
+				"internalType": "string",
+				"name": "_title",
+				"type": "string"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "string",
-						"name": "_name",
-						"type": "string"
-					}
-				],
-				"name": "createCommunity",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
+				"internalType": "string",
+				"name": "_content",
+				"type": "string"
+			}
+		],
+		"name": "createPost",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_postsIdx",
+				"type": "uint256"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_communityIdx",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "_title",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "_content",
-						"type": "string"
-					}
-				],
-				"name": "createPost",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
+				"internalType": "string",
+				"name": "_content",
+				"type": "string"
+			}
+		],
+		"name": "createReport",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idx",
+				"type": "uint256"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_postsIdx",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "_content",
-						"type": "string"
-					}
-				],
-				"name": "createReport",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
+				"internalType": "int256",
+				"name": "_commentIdx",
+				"type": "int256"
+			}
+		],
+		"name": "downVote",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_idx",
-						"type": "uint256"
-					},
-					{
-						"internalType": "int256",
-						"name": "_commentIdx",
-						"type": "int256"
-					}
-				],
-				"name": "downVote",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
+				"internalType": "uint256",
+				"name": "_idx",
+				"type": "uint256"
+			}
+		],
+		"name": "getComments",
+		"outputs": [
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_idx",
-						"type": "uint256"
-					}
-				],
-				"name": "getComments",
-				"outputs": [
-					{
-						"components": [
-							{
-								"internalType": "address payable",
-								"name": "commenter",
-								"type": "address"
-							},
-							{
-								"internalType": "string",
-								"name": "content",
-								"type": "string"
-							},
-							{
-								"internalType": "int256",
-								"name": "votes",
-								"type": "int256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "timestamp",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "childCommentsIdx",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "parentCommentsIdx",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct Deddit.Comment[]",
-						"name": "",
-						"type": "tuple[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_idx",
-						"type": "uint256"
-					}
-				],
-				"name": "getCommunity",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_idx",
-						"type": "uint256"
-					}
-				],
-				"name": "getCommunityPosts",
-				"outputs": [
-					{
-						"internalType": "uint256[]",
-						"name": "",
-						"type": "uint256[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_idx",
-						"type": "uint256"
-					}
-				],
-				"name": "getPost",
-				"outputs": [
+				"components": [
 					{
 						"internalType": "address payable",
-						"name": "",
+						"name": "commenter",
 						"type": "address"
 					},
 					{
 						"internalType": "string",
-						"name": "",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "",
+						"name": "content",
 						"type": "string"
 					},
 					{
 						"internalType": "int256",
-						"name": "",
+						"name": "votes",
 						"type": "int256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "",
+						"name": "timestamp",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "",
+						"name": "childCommentsIdx",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "",
+						"name": "parentCommentsIdx",
 						"type": "uint256"
 					}
 				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_postIdx",
-						"type": "uint256"
-					}
-				],
-				"name": "getReports",
-				"outputs": [
-					{
-						"components": [
-							{
-								"internalType": "address payable",
-								"name": "reporter",
-								"type": "address"
-							},
-							{
-								"internalType": "string",
-								"name": "content",
-								"type": "string"
-							}
-						],
-						"internalType": "struct Deddit.Report[]",
-						"name": "",
-						"type": "tuple[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_idx",
-						"type": "uint256"
-					},
-					{
-						"internalType": "int256",
-						"name": "_commentIdx",
-						"type": "int256"
-					}
-				],
-				"name": "getVoteState",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "_state",
-						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "postsLen",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_idx",
-						"type": "uint256"
-					},
-					{
-						"internalType": "int256",
-						"name": "_commentIdx",
-						"type": "int256"
-					}
-				],
-				"name": "upVote",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
+				"internalType": "struct Deddit.Comment[]",
+				"name": "",
+				"type": "tuple[]"
 			}
 		],
-		"devdoc": {
-			"kind": "dev",
-			"methods": {},
-			"version": 1
-		},
-		"userdoc": {
-			"kind": "user",
-			"methods": {},
-			"version": 1
-		}
+		"stateMutability": "view",
+		"type": "function"
 	},
-	"settings": {
-		"compilationTarget": {
-			"deddit.sol": "Deddit"
-		},
-		"evmVersion": "london",
-		"libraries": {},
-		"metadata": {
-			"bytecodeHash": "ipfs"
-		},
-		"optimizer": {
-			"enabled": false,
-			"runs": 200
-		},
-		"remappings": []
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idx",
+				"type": "uint256"
+			}
+		],
+		"name": "getCommunity",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
-	"sources": {
-		"deddit.sol": {
-			"keccak256": "0x4071adea1ff6f46395f27c9981b421dded41a363e3d3cadc71af542c46c47e28",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://a5ee64bfe50e837675e2148a291a8df75a61fec044c3c5b714250e5e9e7668f4",
-				"dweb:/ipfs/QmYcEkk2ZzSEXDvMX97MSa8P46gZj7TwikM4Bnk6vbnJSy"
-			]
-		}
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idx",
+				"type": "uint256"
+			}
+		],
+		"name": "getCommunityPosts",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
-	"version": 1
-}
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idx",
+				"type": "uint256"
+			}
+		],
+		"name": "getPost",
+		"outputs": [
+			{
+				"internalType": "address payable",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "int256",
+				"name": "",
+				"type": "int256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_postIdx",
+				"type": "uint256"
+			}
+		],
+		"name": "getReports",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address payable",
+						"name": "reporter",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "content",
+						"type": "string"
+					}
+				],
+				"internalType": "struct Deddit.Report[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idx",
+				"type": "uint256"
+			},
+			{
+				"internalType": "int256",
+				"name": "_commentIdx",
+				"type": "int256"
+			}
+		],
+		"name": "getVoteState",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "_state",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "postsLen",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idx",
+				"type": "uint256"
+			},
+			{
+				"internalType": "int256",
+				"name": "_commentIdx",
+				"type": "int256"
+			}
+		],
+		"name": "upVote",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	}
+]

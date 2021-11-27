@@ -9,7 +9,7 @@ export const getContract = (kit: ContractKit): Contract => {
   // helper to get the contract
   if (!contract) {
     contract = new kit.web3.eth.Contract(
-      Metadata.output.abi as any,
+      Metadata as any,
       process.env.NEXT_PUBLIC_CONTRACT_ADDRESS
     );
   }

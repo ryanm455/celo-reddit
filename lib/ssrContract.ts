@@ -13,7 +13,7 @@ export const ssrContract = async () => {
   kit.defaultAccount = accounts[0];
 
   return new kit.web3.eth.Contract(
-    Metadata.output.abi as any,
+    Metadata as any,
     process.env.NEXT_PUBLIC_CONTRACT_ADDRESS
   );
 };
